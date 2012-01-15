@@ -8,6 +8,7 @@ class ActiveGist
   autoload :API,          "active_gist/api"
   autoload :Attributes,   "active_gist/attributes"
   autoload :ClassMethods, "active_gist/class_methods"
+  autoload :Invalid,      "active_gist/errors/invalid"
   
   extend ActiveModel::Naming
   extend ActiveModel::Callbacks
@@ -22,7 +23,7 @@ class ActiveGist
   extend ActiveGist::ClassMethods
   
   def persisted?
-    false
+    !id.blank?
   end
   
   validates_presence_of :files
@@ -32,18 +33,21 @@ class ActiveGist
   end
   
   def ==(other)
-    id == other.id
+    other.kind_of?(ActiveGist) && id == other.id
   end
   
   def save
+    return false unless valid?
+    
     response = api.post to_json(:only => [:description, :public, :files]), :content_type => 'application/json'
     self.attributes = JSON.parse response
-    
     @previously_changed = changes
     changed_attributes.clear
+    
+    true
   end
   
   def save!
-    save
+    raise ActiveGist::Invalid, "Gist is invalid: #{errors.full_messages.join('; ')}" unless save
   end
 end

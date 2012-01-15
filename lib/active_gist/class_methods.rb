@@ -3,6 +3,10 @@ module ActiveGist::ClassMethods
     new(options).tap { |gist| gist.save! }
   end
   
+  def create(options = {})
+    new(options).tap { |gist| gist.save }
+  end
+  
   def first(type = :all)
     all(type).first
   end

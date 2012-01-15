@@ -2,6 +2,14 @@ require 'spec_helper'
 require 'test/unit'
 
 describe ActiveGist do
+  let(:valid_attributes) do { :files => [{ "file1.txt" => { :content => 'String file contents' } }] } end
+  
+  it "should not be 'equal' to another object with same id" do
+    obj = Object.new
+    def obj.id; '1'; end
+    ActiveGist.new(:id => '1').should_not == obj
+  end
+  
   describe "validation" do
     before { subject.valid? }
     
@@ -20,12 +28,49 @@ describe ActiveGist do
   end
   
   describe "creating a valid gist with arrays and hashes" do
-    subject { ActiveGist.create!(:files => [{ "file1.txt" => { :content => 'String file contents' } }]) }
+    subject { ActiveGist.create!(valid_attributes) }
     
     it "should return the new gist" do
       subject.id.should == '1'
       subject.url.should == 'https://api.github.com/gists/1'
       subject.should be_public # this would default to false but our fake response returns true
+    end
+    
+    it "should be persisted" do
+      subject.should be_persisted
+    end
+  end
+  
+  describe "saving a valid gist" do
+    subject { ActiveGist.new(valid_attributes) }
+    before { subject.save }
+    
+    it '#save should return true' do
+      subject.save.should be_true
+    end
+    
+    it "should be persisted" do
+      subject.should be_persisted
+    end
+  end
+  
+  describe "creating an invalid gist" do
+    it "::create! should raise an error" do
+      proc { ActiveGist.create! }.should raise_error
+    end
+    
+    it "::create should return a record that is not persisted" do
+      ActiveGist.create.should_not be_persisted
+    end
+  end
+  
+  describe "saving an invalid gist" do
+    it '#save! should raise an error' do
+      proc { ActiveGist.new.save! }.should raise_error
+    end
+    
+    it '#save should return false' do
+      ActiveGist.new.save.should be_false
     end
   end
   

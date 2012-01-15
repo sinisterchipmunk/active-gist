@@ -4,3 +4,4 @@ source "http://rubygems.org"
 gemspec
 
 gem 'json', :platforms => [ :ruby_18, :jruby ]
+gem 'jruby-openssl', :platforms => :jruby

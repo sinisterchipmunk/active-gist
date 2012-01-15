@@ -1,4 +1,4 @@
-= ActiveGist!
+= ActiveGist! {<img src="https://secure.travis-ci.org/sinisterchipmunk/active-gist.png" />}[http://travis-ci.org/sinisterchipmunk/active-gist]
 
 I needed a Ruby library to perform basic create, read, update and delete operations on Gists. I looked, I saw basically nothing (except hacky, test-less tools), and I decided to roll my own. Here's the result.
 

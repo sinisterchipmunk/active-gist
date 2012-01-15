@@ -9,3 +9,4 @@ FakeWeb.register_uri(:get, 'https://username:password@api.github.com/gists', :re
 FakeWeb.register_uri(:get, 'https://username:password@api.github.com/gists/public', :response => json('public_gists'))
 FakeWeb.register_uri(:get, 'https://username:password@api.github.com/gists/starred', :response => json('starred_gists'))
 FakeWeb.register_uri(:get, 'https://username:password@api.github.com/gists/2', :response => json('gist_2'))
+FakeWeb.register_uri(:post, 'https://username:password@api.github.com/gists', :response => json('new_gist'))

@@ -28,8 +28,9 @@ module ActiveGist::Attributes
   end
   
   def public?
-    @public
+    !!@public
   end
+  alias public public?
   
   def user
     @user
@@ -76,6 +77,20 @@ module ActiveGist::Attributes
   
   def attributes
     GIST_ATTRIBUTES.inject({}) { |h,k| h[k] = self[k]; h }
+  end
+  
+  def attributes=(attributes)
+    attributes.each do |key, value|
+      if respond_to?(:"#{key}=")
+        send :"#{key}=", value
+      else
+        if GIST_ATTRIBUTES.include?(key.to_s)
+          instance_variable_set :"@#{key}", value
+        else
+          raise ArgumentError, "Unknown attribute #{key.inspect}; expected one of #{GIST_ATTRIBUTES.inspect}"
+        end
+      end
+    end
   end
 
   def [](attribute)

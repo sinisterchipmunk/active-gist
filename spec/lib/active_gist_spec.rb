@@ -2,6 +2,33 @@ require 'spec_helper'
 require 'test/unit'
 
 describe ActiveGist do
+  describe "validation" do
+    before { subject.valid? }
+    
+    it "should not validate presence of description" do
+      subject.errors[:description].should_not include("can't be blank")
+    end
+    
+    it "should not validate presence of public" do
+      # github requires this but we're just going to default it to false
+      subject.errors[:public].should_not include("can't be blank")
+    end
+    
+    it "should validate presence of files" do
+      subject.errors[:files].should include("can't be blank")
+    end
+  end
+  
+  describe "creating a valid gist with arrays and hashes" do
+    subject { ActiveGist.create!(:files => [{ "file1.txt" => { :content => 'String file contents' } }]) }
+    
+    it "should return the new gist" do
+      subject.id.should == '1'
+      subject.url.should == 'https://api.github.com/gists/1'
+      subject.should be_public # this would default to false but our fake response returns true
+    end
+  end
+  
   it "should have a count of all gists" do
     ActiveGist.count.should == 3
   end

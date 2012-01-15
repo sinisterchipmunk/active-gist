@@ -1,5 +1,7 @@
 class ActiveGist::Files
-  delegate :key?, :has_key?, :[], :[]=, :empty?, :as_json, :to_json, :as_xml, :to_xml, :inspect, :to => :hash
+  attr_reader :hash
+  delegate :key?, :has_key?, :[], :[]=, :empty?, :as_json, :to_json, :as_xml, :to_xml, :inspect,
+           :method_missing, :to => :hash
   
   def initialize(hash = {})
     @hash = hash
@@ -18,10 +20,6 @@ class ActiveGist::Files
   end
   
   private
-  def hash
-    @hash
-  end
-  
   def deep_dup(obj)
     if obj.kind_of?(Array)
       obj.collect { |a| deep_dup a }

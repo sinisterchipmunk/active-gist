@@ -30,6 +30,14 @@ describe ActiveGist do
       g.unstar!
       g.should_not be_starred
     end
+    
+    it "destroy it" do
+      g = ActiveGist.find 1
+      g.destroy
+      g.should_not be_persisted
+      g.should_not be_new_record
+      g.should be_destroyed
+    end
   end
   
   describe "validation" do

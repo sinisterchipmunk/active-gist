@@ -24,49 +24,36 @@ class ActiveGist
   extend ActiveGist::API
   extend ActiveGist::ClassMethods
   
-  def starred?
-    if @star.nil?
-      @star = begin
-        @star = api[id]['star'].get
-        true
-      rescue RestClient::ResourceNotFound
-        false
-      end
-    else
-      @star
-    end
-  end
-  
-  def star!
-    api[id]['star'].put({})
-    @star = true
-  end
-  
-  def unstar!
-    api[id]['star'].delete
-    @star = false
-  end
-  
-  def persisted?
-    !id.blank? && !changed?
-  end
-  
-  def new_record?
-    id.blank?
-  end
+  define_model_callbacks :save, :create, :update, :initialize, :validation
+  validate { |record| record.errors.add(:files, "can't be blank") if record.files.empty? }
   
   alias _changed? changed? #:nodoc:
   def changed?
     _changed? || files.changed?
   end
   
-  define_model_callbacks :save, :create, :update, :initialize, :validation
-  validate { |record| record.errors.add(:files, "can't be blank") if record.files.empty? }
-  
   def initialize(attributes = {})
     run_callbacks :initialize do
       self.attributes = attributes
     end
+  end
+  
+  def persisted?
+    !destroyed? && !id.blank? && !changed?
+  end
+  
+  def new_record?
+    !destroyed? && id.blank?
+  end
+  
+  def destroyed?
+    !!@destroyed
+  end
+  
+  def destroy
+    api[id].delete
+    @id = nil
+    @destroyed = true
   end
   
   def files=(hash)
@@ -109,5 +96,28 @@ class ActiveGist
   
   def save!
     raise ActiveGist::Invalid, "Gist is invalid: #{errors.full_messages.join('; ')}" unless save
+  end
+
+  def starred?
+    if @star.nil?
+      @star = begin
+        @star = api[id]['star'].get
+        true
+      rescue RestClient::ResourceNotFound
+        false
+      end
+    else
+      @star
+    end
+  end
+  
+  def star!
+    api[id]['star'].put({})
+    @star = true
+  end
+  
+  def unstar!
+    api[id]['star'].delete
+    @star = false
   end
 end

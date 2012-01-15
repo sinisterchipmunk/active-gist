@@ -20,7 +20,7 @@ module ActiveGist::ClassMethods
   end
   
   def find(id)
-    load JSON.parse(api[id].get)
+    load JSON.parse(api[id].get(:accept => 'application/json'))
   end
   
   def load(hash)
@@ -31,9 +31,9 @@ module ActiveGist::ClassMethods
   
   def all(type = :all)
     case type
-      when :all then JSON.parse api.get
-      when :public then JSON.parse api['public'].get
-      when :starred then JSON.parse api['starred'].get
+      when :all then JSON.parse api.get(:accept => 'application/json')
+      when :public then JSON.parse api['public'].get(:accept => 'application/json')
+      when :starred then JSON.parse api['starred'].get(:accept => 'application/json')
       else raise ArgumentError, "Unknown type: #{type.inspect} (expected one of [:all, :public, :starred])"
     end.collect do |hash|
       load hash

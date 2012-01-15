@@ -3,6 +3,25 @@ require 'test/unit'
 
 describe ActiveGist do
   let(:valid_attributes) do { :files => { "file1.txt" => { :content => 'String file contents' } } } end
+    
+  def expect_request(method, path, data = nil, headers = { :accept => 'application/json' }, return_val = {id:1})
+    RestClient::Request.should_receive(:execute) do |options|
+      expectation = [method, File.join("https://api.github.com", path)]
+      actual = [options[:method], options[:url]]
+      case data
+        when NilClass then expectation << nil; actual << options[:payload]
+        when String   then expectation << data; actual << options[:payload]
+        when Hash     then expectation << JSON.parse(data.to_json); actual << JSON.parse(options[:payload])
+        else raise "Don't know how to handle data format: #{data.inspect}"
+      end
+      options[:headers].each { |k,v| headers[k] = v unless headers.key?(k) }
+      expectation << headers
+      actual << options[:headers]
+      
+      actual.should == expectation
+      return_val.to_json
+    end
+  end
   
   it "should not be 'equal' to another object with same id" do
     obj = Object.new
@@ -10,40 +29,90 @@ describe ActiveGist do
     ActiveGist.new(:id => '1').should_not == obj
   end
   
+  describe "a new gist" do
+    it "assign a file and validate" do
+      a = ActiveGist.new
+      a.files['file1.txt'] = { :content => "this is test content" }
+      a.should be_valid
+    end
+  end
+  
   describe "an existing gist" do
-    it "check if it is starred" do
-      ActiveGist.find(1).should be_starred
-    end
-    
-    it "check if it is not starred" do
-      ActiveGist.find(2).should_not be_starred
-    end
-    
-    it "star it" do
-      g = ActiveGist.find 2
-      g.star!
-      g.should be_starred
-    end
-    
-    it "unstar it" do
-      g = ActiveGist.find 1
-      g.unstar!
-      g.should_not be_starred
-    end
-    
-    it "destroy it" do
-      g = ActiveGist.find 1
-      g.destroy
-      g.should_not be_persisted
-      g.should_not be_new_record
-      g.should be_destroyed
-    end
-    
-    it "fork it" do
-      g = ActiveGist.find 1
-      fork = g.fork
+    describe "that is starred" do
+      subject { ActiveGist.find(1) }
       
-      g.should_not == fork
+      it "check if it is starred" do
+        subject.should be_starred
+      end
+      
+      it "check valid request" do
+        subject
+        expect_request(:get, "/gists/1/star")
+        subject.starred?
+      end
+      
+      describe "unstarring it" do
+        it { subject.unstar!; should_not be_starred }
+        it "check valid request" do
+          subject
+          expect_request :delete, "gists/1/star"
+          subject.unstar!
+        end
+      end
+    end
+    
+    describe "that is not starred" do
+      subject { ActiveGist.find(2) }
+      
+      it "check if it is not starred" do
+        subject.should_not be_starred
+      end
+      
+      it "check valid request" do
+        subject
+        expect_request :get, "/gists/2/star"
+        subject.starred?
+      end
+
+      describe "starring it" do
+        it { subject.star!; should be_starred }
+        it "check valid request" do
+          subject
+          expect_request :put, "/gists/2/star", ""
+          subject.star!
+        end
+      end
+    end
+    
+    describe "destroying it" do
+      subject { ActiveGist.find 1 }
+      
+      it "should destroy properly" do
+        subject.destroy
+        subject.should_not be_persisted
+        subject.should_not be_new_record
+        subject.should be_destroyed
+      end
+      
+      it "should send correct request" do
+        subject
+        expect_request :delete, "gists/1"
+        subject.destroy
+      end
+    end
+    
+    describe "forking it" do
+      subject { ActiveGist.find 1 }
+      
+      it "should return the forked gist" do
+        subject.fork.should_not == subject
+      end
+      
+      it "should send the correct request" do
+        subject
+        expect_request :post, "/gists/1/fork", ""
+        subject.fork
+      end
     end
   end
   
@@ -76,6 +145,11 @@ describe ActiveGist do
     it "should be persisted" do
       subject.should be_persisted
     end
+    
+    it "should send proper request" do
+      expect_request :post, "/gists", valid_attributes.merge(:description => nil, :public => false)
+      subject
+    end
   end
   
   describe 'changing just files' do
@@ -94,6 +168,14 @@ describe ActiveGist do
     end
     
     it { should_not be_persisted }
+    
+    it "should send proper request to save" do
+      expect_request :patch, "/gists/1", {
+        :description => "updated description",
+        :files => subject.files
+      }
+      subject.save!
+    end
     
     describe "saving" do
       before { subject.save! }
@@ -175,6 +257,10 @@ describe ActiveGist do
   
   it "should find a gist by id" do
     ActiveGist.find(2).should == ActiveGist.all[1]
+    
+    # check request
+    expect_request(:get, "/gists/2")
+    ActiveGist.find(2)
   end
   
   describe "a gist returned by github" do
@@ -194,10 +280,14 @@ describe ActiveGist do
   end
   
   describe "fetching all gists" do
-    # before { FakeWeb.register_uri  }
     subject { ActiveGist.all }
     
     it { should have(3).gists }
+    
+    it "should request the gist properly" do
+      expect_request(:get, "/gists", nil, {:accept => 'application/json'}, [])
+      subject
+    end
   end
   
   describe "active model lint tests" do

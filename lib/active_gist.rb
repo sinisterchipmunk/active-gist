@@ -9,7 +9,7 @@ class ActiveGist
   autoload :API,          "active_gist/api"
   autoload :Attributes,   "active_gist/attributes"
   autoload :ClassMethods, "active_gist/class_methods"
-  autoload :Invalid,      "active_gist/errors/invalid"
+  autoload :Errors,       "active_gist/errors/invalid"
   autoload :Files,        "active_gist/files"
   
   extend ActiveModel::Naming
@@ -18,6 +18,7 @@ class ActiveGist
   include ActiveModel::Dirty
   include ActiveModel::Conversion
   include ActiveModel::Serializers::JSON
+  include ActiveModel::Serializers::Xml
   
   include ActiveGist::API
   include ActiveGist::Attributes
@@ -38,6 +39,10 @@ class ActiveGist
     end
   end
   
+  def inspect
+    "#<#{self.class.name} #{attributes.collect { |a| [a[0], a[1].inspect].join('=') }.join(' ')}>"
+  end
+  
   def persisted?
     !destroyed? && !id.blank? && !changed?
   end
@@ -51,13 +56,13 @@ class ActiveGist
   end
   
   def destroy
-    api[id].delete
+    api[id].delete :accept => 'application/json'
     @id = nil
     @destroyed = true
   end
   
   def fork
-    self.class.load(JSON.parse api[id]['fork'].post({}))
+    self.class.load(JSON.parse api[id]['fork'].post("", :accept => 'application/json'))
   end
   
   def files=(hash)
@@ -85,9 +90,11 @@ class ActiveGist
     run_callbacks create_or_update_callback do
       run_callbacks :save do
         if new_record?
-          response = api.post to_json(:only => [:description, :public, :files]), :content_type => 'application/json'
+          data = as_json(:only => [:description, :public, :files]).delete('active_gist').to_json
+          response = api.post data, :content_type => 'application/json', :accept => 'application/json'
         else
-          response = api[id].patch to_json(:only => [:description, :files]), :content_type => 'application/json'
+          data = as_json(:only => [:description, :files]).delete('active_gist').to_json
+          response = api[id].patch data, :content_type => 'application/json', :accept => 'application/json'
         end
         self.attributes = JSON.parse response
         @previously_changed = changes
@@ -99,13 +106,13 @@ class ActiveGist
   end
   
   def save!
-    raise ActiveGist::Invalid, "Gist is invalid: #{errors.full_messages.join('; ')}" unless save
+    raise ActiveGist::Errors::Invalid, "Gist is invalid: #{errors.full_messages.join('; ')}" unless save
   end
 
   def starred?
     if @star.nil?
       @star = begin
-        @star = api[id]['star'].get
+        @star = api[id]['star'].get :accept => 'application/json'
         true
       rescue RestClient::ResourceNotFound
         false
@@ -116,12 +123,12 @@ class ActiveGist
   end
   
   def star!
-    api[id]['star'].put({})
+    api[id]['star'].put("", :accept => 'application/json')
     @star = true
   end
   
   def unstar!
-    api[id]['star'].delete
+    api[id]['star'].delete(:accept => 'application/json')
     @star = false
   end
 end

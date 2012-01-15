@@ -1,7 +1,7 @@
 class ActiveGist::Files
-  delegate :key?, :has_key?, :[], :[]=, :empty?, :to => :hash
+  delegate :key?, :has_key?, :[], :[]=, :empty?, :as_json, :to_json, :as_xml, :to_xml, :inspect, :to => :hash
   
-  def initialize(hash = [])
+  def initialize(hash = {})
     @hash = hash
     @changed = false
   end

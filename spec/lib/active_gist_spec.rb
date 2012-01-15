@@ -22,6 +22,10 @@ describe ActiveGist do
     ActiveGist.first.id.should == '1'
   end
   
+  it "should find a gist by id" do
+    ActiveGist.find(2).should == ActiveGist.all[1]
+  end
+  
   describe "a gist returned by github" do
     subject { ActiveGist.first }
     it { should respond_to(:url) }

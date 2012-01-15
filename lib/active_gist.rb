@@ -36,6 +36,10 @@ class ActiveGist
     end
   end
   
+  def ==(other)
+    id == other.id
+  end
+  
   def as_json(*options)
     attributes.as_json(*options)
   end
@@ -55,6 +59,10 @@ class ActiveGist
     
     def count(type = :all)
       all(type).count
+    end
+    
+    def find(id)
+      instantiate_from_attributes JSON.parse(api[id].get)
     end
     
     def instantiate_from_attributes(hash)

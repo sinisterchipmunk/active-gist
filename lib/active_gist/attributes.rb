@@ -1,11 +1,18 @@
 module ActiveGist::Attributes
-  # note: url, id, user, comments, html_url, git_pull_url, git_push_url and created_at
-  # are controlled by GitHub and can't be changed.
   GIST_ATTRIBUTES = %w(url id description public user files comments
-                       html_url git_pull_url git_push_url created_at)
+                       html_url git_pull_url git_push_url created_at
+                       forks history)
                        
   def self.included(base) #:nodoc:
     base.define_attribute_methods GIST_ATTRIBUTES
+  end
+  
+  def forks
+    @forks
+  end
+  
+  def history
+    @history
   end
   
   def url

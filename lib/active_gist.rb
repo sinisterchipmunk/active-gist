@@ -16,7 +16,7 @@ class ActiveGist
   include ActiveModel::Dirty
   include ActiveModel::Conversion
   include ActiveModel::Serializers::JSON
-    
+  
   include ActiveGist::API
   include ActiveGist::Attributes
   extend ActiveGist::API
@@ -26,10 +26,13 @@ class ActiveGist
     !id.blank?
   end
   
+  define_model_callbacks :save, :create, :update, :initialize, :validation
   validates_presence_of :files
   
   def initialize(attributes = {})
-    self.attributes = attributes
+    run_callbacks :initialize do
+      self.attributes = attributes
+    end
   end
   
   def ==(other)
@@ -37,13 +40,24 @@ class ActiveGist
   end
   
   def save
-    return false unless valid?
+    valid = begin
+      run_callbacks :validation do
+        valid?
+      end
+    end
     
-    response = api.post to_json(:only => [:description, :public, :files]), :content_type => 'application/json'
-    self.attributes = JSON.parse response
-    @previously_changed = changes
-    changed_attributes.clear
+    return false unless valid
     
+    create_or_update_callback = persisted? ? :create : :update
+    run_callbacks create_or_update_callback do
+      run_callbacks :save do
+        response = api.post to_json(:only => [:description, :public, :files]), :content_type => 'application/json'
+        self.attributes = JSON.parse response
+        @previously_changed = changes
+        changed_attributes.clear
+      end
+    end
+
     true
   end
   

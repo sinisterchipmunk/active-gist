@@ -1,0 +1,96 @@
+= ActiveGist!
+
+I needed a Ruby library to perform basic create, read, update and delete operations on Gists. I looked, I saw basically nothing (except hacky, test-less tools), and I decided to roll my own. Here's the result.
+
+ActiveGist is so named because it wraps GitHub's Gist API with a class implementing the ActiveModel modules. So, it should be pretty familiar to anyone who's ever used models in Ruby on Rails.
+
+== Installation
+
+The obligatory installation steps, in case you haven't yet figured out they're the same as any other gem...
+
+  gem install activegist
+
+== Usage
+
+  require 'rubygems' # on old rubies
+  require 'activegist'
+  
+  # Set up credentials. A required step, as far as I know.
+  ActiveGist::API.username = "gist owner's github username"
+  ActiveGist::API.password = "gist owner's github password"
+  
+  # Various examples of creating and saving a new gist
+  gist = ActiveGist.new
+  gist.description = "gist description"
+  gist.files                                              #=> {}
+  gist.files['test.txt'] = { :content => 'file content' }
+  gist.save                                               #=> true or false
+  gist.save!                                              #=> raise an error on validation error
+  
+  # gists are private by default. To make them public, pass a :public option.
+  gist = ActiveGist.new :public => true,
+                        :description => "optional",
+                        :files => { 'test.txt' => { :content => 'file content' } })
+  gist.save
+  
+  gist = ActiveGist.create!(:files => { 'test.txt' => { :content => 'file content' } })
+  
+  # Check if gist is valid
+  gist = ActiveGist.new
+  gist.valid?               #=> false
+  gist.errors.full_messages #=> ["Files can't be blank"] 
+  gist.errors[:files]       #=> ["can't be blank"]
+  
+  # Find an existing gist if you know its ID
+  gist = ActiveGist.find id
+  gist.public?  #=> true if the gist is public, false otherwise
+  gist.files
+  #=>
+  #  {"test.txt"=>
+  #    {"type"=>"text/plain",
+  #     "content"=>"file content", 
+  #     "raw_url"=>"https://gist.github.com/.../test.txt",
+  #     "size"=>12,
+  #     "filename"=>"test.txt",
+  #     "language"=>"Text"
+  #    }
+  #  }
+  
+  # Fork an existing gist. Yes, really.
+  gist = ActiveGist.find id
+  forked_gist = gist.fork
+  
+  # Check if gist is already starred, then star it, then unstar it.
+  # (Unlike most methods, these take effect immediately!)
+  gist = ActiveGist.find id
+  gist.starred?    #=> boolean
+  gist.star!
+  gist.unstar!
+  
+  # Get a whole bunch of gists.
+  ActiveGist.all
+  ActiveGist.all :public    # returns only public gists
+  ActiveGist.all :starred   # returns only starred gists
+  
+  # Get just one gist.
+  ActiveGist.first
+  ActiveGist.last
+  
+  # Count gists.
+  ActiveGist.count
+  ActiveGist.count :public
+  ActiveGist.count :starred
+  
+  # Save changes to a gist
+  gist = ActiveGist.first
+  gist.files['test.txt'][:content] = "Updated content"
+  gist.changed?  #=> true
+  gist.save      #=> true if saved, false if validation failed
+  gist.save!     #=> true if saved, raise error if validation failed
+  
+  # Destroy the gist, it's just a test gist anyway
+  gist.destroy
+
+== Good Lovin'
+
+Released under the MIT license. Copyright (c) 2012, Colin MacKenzie IV

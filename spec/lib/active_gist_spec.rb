@@ -4,7 +4,7 @@ require 'test/unit'
 describe ActiveGist do
   let(:valid_attributes) do { :files => { "file1.txt" => { :content => 'String file contents' } } } end
     
-  def expect_request(method, path, data = nil, headers = { :accept => 'application/json' }, return_val = {id:1})
+  def expect_request(method, path, data = nil, headers = { :accept => 'application/json' }, return_val = {:id=>1})
     RestClient::Request.should_receive(:execute) do |options|
       expectation = [method, File.join("https://api.github.com", path)]
       actual = [options[:method], options[:url]]

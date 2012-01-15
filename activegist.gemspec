@@ -7,9 +7,9 @@ Gem::Specification.new do |s|
   s.version     = ActiveGist::VERSION
   s.authors     = ["Colin MacKenzie IV"]
   s.email       = ["sinisterchipmunk@gmail.com"]
-  s.homepage    = ""
-  s.summary     = %q{TODO: Write a gem summary}
-  s.description = %q{TODO: Write a gem description}
+  s.homepage    = "http://github.com/sinisterchipmunk/active-gist"
+  s.summary     = %q{Wraps GitHub's Gist API with an intuitive class based on ActiveModel.}
+  s.description = %q{Wraps GitHub's Gist API with a class implementing the ActiveModel modules. So, it should be pretty familiar to anyone who's ever used models in Ruby on Rails.}
 
   s.rubyforge_project = "activegist"
 

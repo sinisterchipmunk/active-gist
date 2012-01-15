@@ -38,6 +38,13 @@ describe ActiveGist do
       g.should_not be_new_record
       g.should be_destroyed
     end
+    
+    it "fork it" do
+      g = ActiveGist.find 1
+      fork = g.fork
+      
+      g.should_not == fork
+    end
   end
   
   describe "validation" do

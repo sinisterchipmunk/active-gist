@@ -56,6 +56,10 @@ class ActiveGist
     @destroyed = true
   end
   
+  def fork
+    self.class.load(JSON.parse api[id]['fork'].post({}))
+  end
+  
   def files=(hash)
     files.replace_with hash.with_indifferent_access
   end

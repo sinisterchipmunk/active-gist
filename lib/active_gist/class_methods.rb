@@ -20,10 +20,10 @@ module ActiveGist::ClassMethods
   end
   
   def find(id)
-    instantiate_from_attributes JSON.parse(api[id].get)
+    load JSON.parse(api[id].get)
   end
   
-  def instantiate_from_attributes(hash)
+  def load(hash)
     new(hash).tap do |instance|
       instance.changed_attributes.clear
     end
@@ -36,7 +36,7 @@ module ActiveGist::ClassMethods
       when :starred then JSON.parse api['starred'].get
       else raise ArgumentError, "Unknown type: #{type.inspect} (expected one of [:all, :public, :starred])"
     end.collect do |hash|
-      instantiate_from_attributes hash
+      load hash
     end
   end
 end

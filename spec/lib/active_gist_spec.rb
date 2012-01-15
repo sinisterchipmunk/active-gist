@@ -10,6 +10,28 @@ describe ActiveGist do
     ActiveGist.new(:id => '1').should_not == obj
   end
   
+  describe "an existing gist" do
+    it "check if it is starred" do
+      ActiveGist.find(1).should be_starred
+    end
+    
+    it "check if it is not starred" do
+      ActiveGist.find(2).should_not be_starred
+    end
+    
+    it "star it" do
+      g = ActiveGist.find 2
+      g.star!
+      g.should be_starred
+    end
+    
+    it "unstar it" do
+      g = ActiveGist.find 1
+      g.unstar!
+      g.should_not be_starred
+    end
+  end
+  
   describe "validation" do
     before { subject.valid? }
     

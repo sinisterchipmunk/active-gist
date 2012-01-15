@@ -24,6 +24,29 @@ class ActiveGist
   extend ActiveGist::API
   extend ActiveGist::ClassMethods
   
+  def starred?
+    if @star.nil?
+      @star = begin
+        @star = api[id]['star'].get
+        true
+      rescue RestClient::ResourceNotFound
+        false
+      end
+    else
+      @star
+    end
+  end
+  
+  def star!
+    api[id]['star'].put({})
+    @star = true
+  end
+  
+  def unstar!
+    api[id]['star'].delete
+    @star = false
+  end
+  
   def persisted?
     !id.blank? && !changed?
   end

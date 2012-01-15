@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'test/unit'
 
 describe ActiveGist do
-  let(:valid_attributes) do { :files => [{ "file1.txt" => { :content => 'String file contents' } }] } end
+  let(:valid_attributes) do { :files => { "file1.txt" => { :content => 'String file contents' } } } end
   
   it "should not be 'equal' to another object with same id" do
     obj = Object.new
@@ -38,6 +38,48 @@ describe ActiveGist do
     
     it "should be persisted" do
       subject.should be_persisted
+    end
+  end
+  
+  describe 'changing just files' do
+    subject { ActiveGist.find(1) }
+    before { subject.files['file1.txt'][:content] = 'updated' }
+    it { should_not be_persisted }
+  end
+  
+  describe "changing an existing gist" do
+    subject { ActiveGist.find(1) }
+    before do
+      subject.description = "updated description"
+      subject.files['old_name.txt'][:filename] = 'new_name.txt'
+      subject.files['deleted.txt'] = nil
+      subject.files['file1.txt'][:content] = "updated file contents"
+    end
+    
+    it { should_not be_persisted }
+    
+    describe "saving" do
+      before { subject.save! }
+      
+      it "should store the new description" do
+        subject.description.should == 'returned updated description'
+      end
+      
+      it "should remove the renamed file's old filename" do
+        subject.files.should_not have_key('old_name.txt')
+      end
+      
+      it "should add the renamed file's new filename" do
+        subject.files.should have_key('new_name.txt')
+      end
+      
+      it "should remove the deleted file" do
+        subject.files.should_not have_key('deleted.txt')
+      end
+      
+      it "should update the modified file contents" do
+        subject.files['file1.txt'][:content].should == 'returned updated file contents'
+      end
     end
   end
   
@@ -111,6 +153,7 @@ describe ActiveGist do
     it { should respond_to(:git_pull_url) }
     it { should respond_to(:git_push_url) }
     it { should respond_to(:created_at) }
+    it { should be_persisted }
   end
   
   describe "fetching all gists" do

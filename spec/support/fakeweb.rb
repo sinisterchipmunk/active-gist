@@ -10,3 +10,5 @@ FakeWeb.register_uri(:get, 'https://username:password@api.github.com/gists/publi
 FakeWeb.register_uri(:get, 'https://username:password@api.github.com/gists/starred', :response => json('starred_gists'))
 FakeWeb.register_uri(:get, 'https://username:password@api.github.com/gists/2', :response => json('gist_2'))
 FakeWeb.register_uri(:post, 'https://username:password@api.github.com/gists', :response => json('new_gist'))
+FakeWeb.register_uri(:get, 'https://username:password@api.github.com/gists/1', :response => json('gist_1'))
+FakeWeb.register_uri(:patch, 'https://username:password@api.github.com/gists/1', :response => json('gist_1_updated'))

@@ -1,5 +1,6 @@
 require 'active_model'
 require 'active_support/hash_with_indifferent_access'
+require 'active_support/core_ext'
 require 'json'
 
 class ActiveGist
@@ -9,6 +10,7 @@ class ActiveGist
   autoload :Attributes,   "active_gist/attributes"
   autoload :ClassMethods, "active_gist/class_methods"
   autoload :Invalid,      "active_gist/errors/invalid"
+  autoload :Files,        "active_gist/files"
   
   extend ActiveModel::Naming
   extend ActiveModel::Callbacks
@@ -23,16 +25,33 @@ class ActiveGist
   extend ActiveGist::ClassMethods
   
   def persisted?
-    !id.blank?
+    !id.blank? && !changed?
+  end
+  
+  def new_record?
+    id.blank?
+  end
+  
+  alias _changed? changed? #:nodoc:
+  def changed?
+    _changed? || files.changed?
   end
   
   define_model_callbacks :save, :create, :update, :initialize, :validation
-  validates_presence_of :files
+  validate { |record| record.errors.add(:files, "can't be blank") if record.files.empty? }
   
   def initialize(attributes = {})
     run_callbacks :initialize do
       self.attributes = attributes
     end
+  end
+  
+  def files=(hash)
+    files.replace_with hash.with_indifferent_access
+  end
+  
+  def files
+    @files ||= ActiveGist::Files.new
   end
   
   def ==(other)
@@ -48,10 +67,14 @@ class ActiveGist
     
     return false unless valid
     
-    create_or_update_callback = persisted? ? :create : :update
+    create_or_update_callback = new_record? ? :create : :update
     run_callbacks create_or_update_callback do
       run_callbacks :save do
-        response = api.post to_json(:only => [:description, :public, :files]), :content_type => 'application/json'
+        if new_record?
+          response = api.post to_json(:only => [:description, :public, :files]), :content_type => 'application/json'
+        else
+          response = api[id].patch to_json(:only => [:description, :files]), :content_type => 'application/json'
+        end
         self.attributes = JSON.parse response
         @previously_changed = changes
         changed_attributes.clear

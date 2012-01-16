@@ -1,7 +1,7 @@
 class ActiveGist::Files
   attr_reader :hash
   delegate :key?, :has_key?, :[], :[]=, :empty?, :as_json, :to_json, :as_xml, :to_xml, :inspect,
-           :method_missing, :to => :hash
+           :to => :hash
   
   def initialize(hash = {})
     @hash = hash
@@ -17,6 +17,10 @@ class ActiveGist::Files
     @changed = true
     @hash_copy = deep_dup hash
     @hash = hash
+  end
+  
+  def method_missing(name, *args, &block)
+    hash.send name, *args, &block
   end
   
   private

@@ -13,4 +13,12 @@ describe ActiveGist::Files do
       subject.as_json.should == { 'file1.txt' => { :content => 'data' } }.as_json
     end
   end
+  
+  it "should delegate missing methods into hash" do
+    # sanity check
+    subject.should_not respond_to(:each)
+    
+    subject.hash.should_receive(:each)
+    subject.each do end
+  end
 end

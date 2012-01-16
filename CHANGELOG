@@ -1,2 +1,6 @@
+* 0.6.1 (01-16-2012)
+  * ActiveGist::Files now delegates all missing methods into #hash
+  * ActiveGist::Files#hash is now public
+
 * 0.6.0 (01-15-2012)
   * First release.

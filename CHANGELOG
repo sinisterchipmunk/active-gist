@@ -1,3 +1,6 @@
+* 0.6.3 (01-23-2012)
+  * Tests pass under ActiveModel 3.2.0.
+
 * 0.6.1 (01-16-2012)
   * ActiveGist::Files now delegates all missing methods into #hash
   * ActiveGist::Files#hash is now public

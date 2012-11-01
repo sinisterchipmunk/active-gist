@@ -1,0 +1,449 @@
+HTTP/1.1 200 OK
+Server: nginx
+Date: Thu, 01 Nov 2012 01:11:52 GMT
+Content-Type: application/json; charset=utf-8
+Connection: keep-alive
+Status: 200 OK
+X-Content-Type-Options: nosniff
+ETag: "cde7efffbd98caf6565b0007217145ce"
+X-GitHub-Media-Type: github.beta
+Cache-Control: public, max-age=60, s-maxage=60
+Vary: Accept
+X-RateLimit-Remaining: 56
+Last-Modified: Fri, 19 Oct 2012 15:05:56 GMT
+X-RateLimit-Limit: 60
+
+{
+  "git_pull_url": "git://gist.github.com/1.git",
+  "updated_at": "2011-02-22T02:58:22Z",
+  "files": {
+    "file1.txt": {
+      "type": "text/plain",
+      "filename": "file1.txt",
+      "content": "This is gist. \nThere are many like it, but this one is mine. \nIt is my life. \nI must master it as I must master my life. \nWithout me gist is useless. \nWithout gist, I am useless.",
+      "language": null,
+      "size": 178,
+      "raw_url": "https://gist.github.com/raw/1/9b2ac7c792209f19e157ddaf00f8946edc306a6b/gistfile1.txt"
+    },
+    "old_name.txt": {
+      "size": 932,
+      "filename": "old_name.txt",
+      "raw_url": "https://gist.github.com/raw/365370/8c4d2d43d178df44f4c03a7f2ac0ff512853564e/old_name.txt",
+      "content": "to be renamed"
+    },
+    "deleted.txt": {
+      "size": 932,
+      "filename": "deleted.txt",
+      "raw_url": "https://gist.github.com/raw/365370/8c4d2d43d178df44f4c03a7f2ac0ff512853564e/deleted.txt",
+      "content": "to be deleted"
+    }
+  },
+  "git_push_url": "git@gist.github.com:1.git",
+  "url": "https://api.github.com/gists/1",
+  "comments_url": "https://api.github.com/gists/1/comments",
+  "public": true,
+  "html_url": "https://gist.github.com/1",
+  "history": [
+    {
+      "url": "https://api.github.com/gists/1/3a641566d0a49014cea6f395e8be68c42b9e46d9",
+      "committed_at": "2011-02-22T02:58:22Z",
+      "version": "3a641566d0a49014cea6f395e8be68c42b9e46d9",
+      "user": {
+        "gravatar_id": "9375a9529679f1b42b567a640d775e7d",
+        "url": "https://api.github.com/users/schacon",
+        "avatar_url": "https://secure.gravatar.com/avatar/9375a9529679f1b42b567a640d775e7d?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+        "login": "schacon",
+        "id": 70
+      },
+      "change_status": {
+        "total": 7,
+        "deletions": 1,
+        "additions": 6
+      }
+    },
+    {
+      "url": "https://api.github.com/gists/1/24c894e1ca5cefd36b3b6e914beb93a7068f6efb",
+      "committed_at": "2011-02-22T02:53:32Z",
+      "version": "24c894e1ca5cefd36b3b6e914beb93a7068f6efb",
+      "user": {
+        "gravatar_id": "9375a9529679f1b42b567a640d775e7d",
+        "url": "https://api.github.com/users/schacon",
+        "avatar_url": "https://secure.gravatar.com/avatar/9375a9529679f1b42b567a640d775e7d?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+        "login": "schacon",
+        "id": 70
+      },
+      "change_status": {
+        "total": 7,
+        "deletions": 6,
+        "additions": 1
+      }
+    },
+    {
+      "url": "https://api.github.com/gists/1/0864db9cbe551088b2269128c5b5d145141f57ef",
+      "committed_at": "2008-07-15T18:17:27Z",
+      "version": "0864db9cbe551088b2269128c5b5d145141f57ef",
+      "user": {
+        "gravatar_id": "9375a9529679f1b42b567a640d775e7d",
+        "url": "https://api.github.com/users/schacon",
+        "avatar_url": "https://secure.gravatar.com/avatar/9375a9529679f1b42b567a640d775e7d?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+        "login": "schacon",
+        "id": 70
+      },
+      "change_status": {
+        "total": 7,
+        "deletions": 1,
+        "additions": 6
+      }
+    },
+    {
+      "url": "https://api.github.com/gists/1/8afc134bf14f8f56ed2e7234128490d9946e8c16",
+      "committed_at": "2008-07-15T18:17:14Z",
+      "version": "8afc134bf14f8f56ed2e7234128490d9946e8c16",
+      "user": {
+        "gravatar_id": "9375a9529679f1b42b567a640d775e7d",
+        "url": "https://api.github.com/users/schacon",
+        "avatar_url": "https://secure.gravatar.com/avatar/9375a9529679f1b42b567a640d775e7d?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+        "login": "schacon",
+        "id": 70
+      },
+      "change_status": {
+        "total": 1,
+        "deletions": 0,
+        "additions": 1
+      }
+    }
+  ],
+  "comments": 9,
+  "created_at": "2008-07-15T18:17:13Z",
+  "user": {
+    "gravatar_id": "9375a9529679f1b42b567a640d775e7d",
+    "url": "https://api.github.com/users/schacon",
+    "avatar_url": "https://secure.gravatar.com/avatar/9375a9529679f1b42b567a640d775e7d?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+    "login": "schacon",
+    "id": 70
+  },
+  "id": "1",
+  "forks": [
+    {
+      "updated_at": "2009-10-14T10:23:33Z",
+      "url": "https://api.github.com/gists/95",
+      "created_at": "2008-07-21T20:15:46Z",
+      "user": {
+        "gravatar_id": "16ae5c2e160af3bdb60db447c092985d",
+        "url": "https://api.github.com/users/danielmorrison",
+        "avatar_url": "https://secure.gravatar.com/avatar/16ae5c2e160af3bdb60db447c092985d?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+        "login": "danielmorrison",
+        "id": 125
+      },
+      "id": "95"
+    },
+    {
+      "updated_at": "2009-10-14T10:23:41Z",
+      "url": "https://api.github.com/gists/140",
+      "created_at": "2008-07-21T20:34:51Z",
+      "user": {
+        "gravatar_id": "4eac78fe7a7a607dcc097a0d6fd63690",
+        "url": "https://api.github.com/users/elliottcable",
+        "avatar_url": "https://secure.gravatar.com/avatar/4eac78fe7a7a607dcc097a0d6fd63690?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+        "login": "elliottcable",
+        "id": 200
+      },
+      "id": "140"
+    },
+    {
+      "updated_at": "2009-10-14T10:24:01Z",
+      "url": "https://api.github.com/gists/248",
+      "created_at": "2008-07-21T21:13:11Z",
+      "user": {
+        "gravatar_id": "c69521d6e22fc0bbd69337ec8b1698df",
+        "url": "https://api.github.com/users/mattetti",
+        "avatar_url": "https://secure.gravatar.com/avatar/c69521d6e22fc0bbd69337ec8b1698df?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+        "login": "mattetti",
+        "id": 113
+      },
+      "id": "248"
+    },
+    {
+      "updated_at": "2009-10-14T10:25:16Z",
+      "url": "https://api.github.com/gists/582",
+      "created_at": "2008-07-22T01:36:18Z",
+      "user": {
+        "gravatar_id": "b7964c02372a1218c65f4a679f9d78d5",
+        "url": "https://api.github.com/users/davidwparker",
+        "avatar_url": "https://secure.gravatar.com/avatar/b7964c02372a1218c65f4a679f9d78d5?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+        "login": "davidwparker",
+        "id": 2379
+      },
+      "id": "582"
+    },
+    {
+      "updated_at": "2009-10-14T10:25:18Z",
+      "url": "https://api.github.com/gists/591",
+      "created_at": "2008-07-22T01:51:28Z",
+      "user": {
+        "gravatar_id": "6a2f7f7a997fab1dbf815d155cca50ee",
+        "url": "https://api.github.com/users/willcodeforfoo",
+        "avatar_url": "https://secure.gravatar.com/avatar/6a2f7f7a997fab1dbf815d155cca50ee?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+        "login": "willcodeforfoo",
+        "id": 100
+      },
+      "id": "591"
+    },
+    {
+      "updated_at": "2009-10-14T10:31:26Z",
+      "url": "https://api.github.com/gists/2398",
+      "created_at": "2008-07-25T06:24:15Z",
+      "user": {
+        "gravatar_id": "c77e15da48833a5205255d0051460464",
+        "url": "https://api.github.com/users/mattagar",
+        "avatar_url": "https://secure.gravatar.com/avatar/c77e15da48833a5205255d0051460464?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+        "login": "mattagar",
+        "id": 18075
+      },
+      "id": "2398"
+    },
+    {
+      "updated_at": "2009-10-14T11:50:19Z",
+      "url": "https://api.github.com/gists/11539",
+      "created_at": "2008-09-19T04:44:37Z",
+      "user": {
+        "gravatar_id": "d4a7c04ca87944e7fb06518fb64f9c36",
+        "url": "https://api.github.com/users/sunfmin",
+        "avatar_url": "https://secure.gravatar.com/avatar/d4a7c04ca87944e7fb06518fb64f9c36?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+        "login": "sunfmin",
+        "id": 1014
+      },
+      "id": "11539"
+    },
+    {
+      "updated_at": "2009-10-16T21:03:06Z",
+      "url": "https://api.github.com/gists/93488",
+      "created_at": "2009-04-11T07:17:37Z",
+      "user": {
+        "gravatar_id": "881bd08b6b94e600475ce431e8e6ea35",
+        "url": "https://api.github.com/users/demonbane",
+        "avatar_url": "https://secure.gravatar.com/avatar/881bd08b6b94e600475ce431e8e6ea35?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+        "login": "demonbane",
+        "id": 7385
+      },
+      "id": "93488"
+    },
+    {
+      "updated_at": "2009-12-14T12:58:33Z",
+      "url": "https://api.github.com/gists/256016",
+      "created_at": "2009-12-14T12:39:44Z",
+      "user": {
+        "gravatar_id": "f09383a4b8725aa99cf892813608de76",
+        "url": "https://api.github.com/users/pedrodelgallego",
+        "avatar_url": "https://secure.gravatar.com/avatar/f09383a4b8725aa99cf892813608de76?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+        "login": "pedrodelgallego",
+        "id": 6951
+      },
+      "id": "256016"
+    },
+    {
+      "updated_at": "2010-04-17T08:52:11Z",
+      "url": "https://api.github.com/gists/369414",
+      "created_at": "2010-04-17T08:51:34Z",
+      "user": {
+        "gravatar_id": "f09383a4b8725aa99cf892813608de76",
+        "url": "https://api.github.com/users/pedrodelgallego",
+        "avatar_url": "https://secure.gravatar.com/avatar/f09383a4b8725aa99cf892813608de76?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+        "login": "pedrodelgallego",
+        "id": 6951
+      },
+      "id": "369414"
+    },
+    {
+      "updated_at": "2011-02-22T05:33:17Z",
+      "url": "https://api.github.com/gists/838269",
+      "created_at": "2011-02-22T05:32:03Z",
+      "user": {
+        "gravatar_id": "a5556e47f603afb7695d05d2cd9883da",
+        "url": "https://api.github.com/users/hz",
+        "avatar_url": "https://secure.gravatar.com/avatar/a5556e47f603afb7695d05d2cd9883da?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+        "login": "hz",
+        "id": 63441
+      },
+      "id": "838269"
+    },
+    {
+      "updated_at": "2011-02-22T08:31:24Z",
+      "url": "https://api.github.com/gists/838371",
+      "created_at": "2011-02-22T08:27:53Z",
+      "user": {
+        "gravatar_id": "5ccd0ef26cb0bd488c7e496f080f8dc5",
+        "url": "https://api.github.com/users/BlackBulletIV",
+        "avatar_url": "https://secure.gravatar.com/avatar/5ccd0ef26cb0bd488c7e496f080f8dc5?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+        "login": "BlackBulletIV",
+        "id": 446397
+      },
+      "id": "838371"
+    },
+    {
+      "updated_at": "2011-03-04T15:37:14Z",
+      "url": "https://api.github.com/gists/854804",
+      "created_at": "2011-03-04T15:36:59Z",
+      "user": {
+        "gravatar_id": "50be7ccda1a6f9f895a2cdf4615eed6e",
+        "url": "https://api.github.com/users/mtsoerin",
+        "avatar_url": "https://secure.gravatar.com/avatar/50be7ccda1a6f9f895a2cdf4615eed6e?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+        "login": "mtsoerin",
+        "id": 643236
+      },
+      "id": "854804"
+    },
+    {
+      "updated_at": "2011-04-26T13:19:30Z",
+      "url": "https://api.github.com/gists/942242",
+      "created_at": "2011-04-26T13:19:11Z",
+      "user": {
+        "gravatar_id": "e466994eea3c2a1672564e45aca844d0",
+        "url": "https://api.github.com/users/gbraad",
+        "avatar_url": "https://secure.gravatar.com/avatar/e466994eea3c2a1672564e45aca844d0?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+        "login": "gbraad",
+        "id": 1894
+      },
+      "id": "942242"
+    },
+    {
+      "updated_at": "2011-05-06T20:05:34Z",
+      "url": "https://api.github.com/gists/959681",
+      "created_at": "2011-05-06T20:04:46Z",
+      "user": {
+        "gravatar_id": "bb108e4ccd3d3d79350b167b62e2db2a",
+        "url": "https://api.github.com/users/bry4n",
+        "avatar_url": "https://secure.gravatar.com/avatar/bb108e4ccd3d3d79350b167b62e2db2a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+        "login": "bry4n",
+        "id": 73400
+      },
+      "id": "959681"
+    },
+    {
+      "updated_at": "2011-06-11T00:34:11Z",
+      "url": "https://api.github.com/gists/1020085",
+      "created_at": "2011-06-11T00:29:06Z",
+      "user": {
+        "gravatar_id": "b5d1886ee10bb84b1d1db698a1ca922e",
+        "url": "https://api.github.com/users/hijolan",
+        "avatar_url": "https://secure.gravatar.com/avatar/b5d1886ee10bb84b1d1db698a1ca922e?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+        "login": "hijolan",
+        "id": 404480
+      },
+      "id": "1020085"
+    },
+    {
+      "updated_at": "2011-07-16T21:14:13Z",
+      "url": "https://api.github.com/gists/1086800",
+      "created_at": "2011-07-16T21:14:13Z",
+      "user": {
+        "gravatar_id": "71a33a634d5397ef8be84890365687d0",
+        "url": "https://api.github.com/users/ryanwcohen",
+        "avatar_url": "https://secure.gravatar.com/avatar/71a33a634d5397ef8be84890365687d0?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+        "login": "ryanwcohen",
+        "id": 730418
+      },
+      "id": "1086800"
+    },
+    {
+      "updated_at": "2011-12-22T09:29:22Z",
+      "url": "https://api.github.com/gists/1509670",
+      "created_at": "2011-12-22T09:29:22Z",
+      "user": {
+        "gravatar_id": "364d08b8747ad5e230f49b65bb07805c",
+        "url": "https://api.github.com/users/dirkmc",
+        "avatar_url": "https://secure.gravatar.com/avatar/364d08b8747ad5e230f49b65bb07805c?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+        "login": "dirkmc",
+        "id": 169124
+      },
+      "id": "1509670"
+    },
+    {
+      "updated_at": "2012-03-29T10:43:15Z",
+      "url": "https://api.github.com/gists/2235768",
+      "created_at": "2012-03-29T10:43:15Z",
+      "user": {
+        "gravatar_id": "6c1210e99714eb597acd49838a7b255d",
+        "url": "https://api.github.com/users/p3drosola",
+        "avatar_url": "https://secure.gravatar.com/avatar/6c1210e99714eb597acd49838a7b255d?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+        "login": "p3drosola",
+        "id": 520550
+      },
+      "id": "2235768"
+    },
+    {
+      "updated_at": "2012-04-03T10:09:24Z",
+      "url": "https://api.github.com/gists/2290808",
+      "created_at": "2012-04-03T10:09:24Z",
+      "user": {
+        "gravatar_id": "eba3426b5f6b84570f6a70f8a594d2c9",
+        "url": "https://api.github.com/users/pygit",
+        "avatar_url": "https://secure.gravatar.com/avatar/eba3426b5f6b84570f6a70f8a594d2c9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+        "login": "pygit",
+        "id": 1392087
+      },
+      "id": "2290808"
+    },
+    {
+      "updated_at": "2012-04-27T18:14:07Z",
+      "url": "https://api.github.com/gists/2511473",
+      "created_at": "2012-04-27T18:14:07Z",
+      "user": null,
+      "id": "2511473"
+    },
+    {
+      "updated_at": "2012-04-30T06:00:43Z",
+      "url": "https://api.github.com/gists/2555875",
+      "created_at": "2012-04-30T06:00:43Z",
+      "user": {
+        "gravatar_id": "bd9a86ce16b44e31611305306d144c68",
+        "url": "https://api.github.com/users/chrisjacob",
+        "avatar_url": "https://secure.gravatar.com/avatar/bd9a86ce16b44e31611305306d144c68?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+        "login": "chrisjacob",
+        "id": 157879
+      },
+      "id": "2555875"
+    },
+    {
+      "updated_at": "2012-05-08T19:26:22Z",
+      "url": "https://api.github.com/gists/2638677",
+      "created_at": "2012-05-08T19:26:22Z",
+      "user": null,
+      "id": "2638677"
+    },
+    {
+      "updated_at": "2012-07-24T05:17:21Z",
+      "url": "https://api.github.com/gists/3168179",
+      "created_at": "2012-07-24T05:17:21Z",
+      "user": {
+        "gravatar_id": "c06c41592f238cfc455c8352c90c41af",
+        "url": "https://api.github.com/users/simcop2387",
+        "avatar_url": "https://secure.gravatar.com/avatar/c06c41592f238cfc455c8352c90c41af?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+        "login": "simcop2387",
+        "id": 90188
+      },
+      "id": "3168179"
+    },
+    {
+      "updated_at": "2012-07-24T15:43:06Z",
+      "url": "https://api.github.com/gists/3170767",
+      "created_at": "2012-07-24T15:43:06Z",
+      "user": null,
+      "id": "3170767"
+    },
+    {
+      "updated_at": "2012-10-05T14:37:26Z",
+      "url": "https://api.github.com/gists/3840144",
+      "created_at": "2012-10-05T14:37:26Z",
+      "user": {
+        "gravatar_id": "ed265adf145a12d2e5f09b2a761f232f",
+        "url": "https://api.github.com/users/DamonOehlman",
+        "avatar_url": "https://secure.gravatar.com/avatar/ed265adf145a12d2e5f09b2a761f232f?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+        "login": "DamonOehlman",
+        "id": 609693
+      },
+      "id": "3840144"
+    }
+  ],
+  "description": "the meaning of gist"
+}

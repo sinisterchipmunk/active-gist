@@ -1,7 +1,7 @@
 module ActiveGist::Attributes
   GIST_ATTRIBUTES = %w(url id description public user files comments
                        html_url git_pull_url git_push_url created_at
-                       forks history updated_at)
+                       forks history updated_at comments_url)
                        
   def self.included(base) #:nodoc:
     base.define_attribute_methods GIST_ATTRIBUTES
@@ -62,6 +62,10 @@ module ActiveGist::Attributes
   
   def updated_at
     @updated_at
+  end
+
+  def comments_url
+    @comments_url
   end
   
   def description=(descr)

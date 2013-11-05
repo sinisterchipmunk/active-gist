@@ -6,7 +6,7 @@ ActiveGist is so named because it wraps GitHub's Gist API with a class implement
 
 == Installation
 
-The obligatory installation steps, in case you haven't yet figured out they're the same as any other gem...
+The obligatory installation steps...
 
   gem install activegist
 

@@ -4,7 +4,11 @@ def json(name)
   File.read(File.expand_path("../fixtures/#{name}.json", File.dirname(__FILE__)))
 end
 
-FakeWeb.allow_net_connect = false
+RSpec.configure do |c|
+  c.before { FakeWeb.allow_net_connect = false }
+  c.after  { FakeWeb.allow_net_connect = true  }
+end
+
 FakeWeb.register_uri(:get, 'https://username:password@api.github.com/gists', :response => json('all_gists'))
 FakeWeb.register_uri(:get, 'https://username:password@api.github.com/gists/public', :response => json('public_gists'))
 FakeWeb.register_uri(:get, 'https://username:password@api.github.com/gists/starred', :response => json('starred_gists'))

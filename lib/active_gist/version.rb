@@ -1,6 +1,6 @@
 class ActiveGist
   module Version
-    MAJOR, MINOR, TINY = 0, 6, 4
+    MAJOR, MINOR, TINY = 0, 7, 0
     STRING = [MAJOR, MINOR, TINY].join '.'
   end
   

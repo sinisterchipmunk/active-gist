@@ -12,7 +12,6 @@ The obligatory installation steps...
 
 == Usage
 
-  require 'rubygems' # on old rubies
   require 'activegist'
   
   # Set up credentials. A required step, as far as I know.

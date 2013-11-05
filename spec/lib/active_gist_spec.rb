@@ -11,7 +11,9 @@ describe ActiveGist do
       case data
         when NilClass then expectation << nil; actual << options[:payload]
         when String   then expectation << data; actual << options[:payload]
-        when Hash     then expectation << JSON.parse(data.to_json); actual << JSON.parse(options[:payload])
+        when Hash
+          expectation << JSON.parse(data.to_json)
+          actual << JSON.parse(options[:payload])
         else raise "Don't know how to handle data format: #{data.inspect}"
       end
       options[:headers].each { |k,v| headers[k] = v unless headers.key?(k) }

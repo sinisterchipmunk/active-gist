@@ -90,10 +90,10 @@ class ActiveGist
     run_callbacks create_or_update_callback do
       run_callbacks :save do
         if new_record?
-          data = as_json(:only => [:description, :public, :files]).delete('active_gist').to_json
+          data = as_json(:only => [:description, :public, :files]).to_json
           response = api.post data, :content_type => 'application/json', :accept => 'application/json'
         else
-          data = as_json(:only => [:description, :files]).delete('active_gist').to_json
+          data = as_json(:only => [:description, :files]).to_json
           response = api[id].patch data, :content_type => 'application/json', :accept => 'application/json'
         end
         self.attributes = JSON.parse response

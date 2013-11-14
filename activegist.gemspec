@@ -3,6 +3,7 @@ $:.push File.expand_path("../lib", __FILE__)
 require "active_gist/version"
 
 Gem::Specification.new do |s|
+  s.licenses    = [ 'MIT' ]
   s.name        = "activegist"
   s.version     = ActiveGist::VERSION
   s.authors     = ["Colin MacKenzie IV"]

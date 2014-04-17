@@ -1,5 +1,5 @@
 module ActiveGist::Attributes
-  GIST_ATTRIBUTES = %w(url id description public user files comments
+  GIST_ATTRIBUTES = %w(url id description public owner files comments
                        html_url git_pull_url git_push_url created_at
                        forks forks_url history updated_at comments_url commits_url)
 
@@ -10,7 +10,7 @@ module ActiveGist::Attributes
   attr_reader :url,
               :id,
               :description,
-              :user,
+              :owner,
               :files,
               :comments,
               :comments_url,
